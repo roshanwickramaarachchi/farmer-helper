@@ -209,7 +209,7 @@ const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, userDat
       {/* error message */}
       {errorMessage ? <Error message={errorMessage} /> : null}
 
-      <View>
+      <View style={{marginTop:30}}>
         <EasyButton
           large
           primary

@@ -9,6 +9,7 @@ import {
   REGISTER,
   SIGN_OUT,
 } from './userType';
+import * as RootNavigation from '../../Navigators/RootNavigation';
 
 export const add_error = errorMessage => {
   return {
@@ -67,6 +68,7 @@ export const signin = ({ email, password }) => async dispatch => {
       });
       //console.log(response.data);
       dispatch(sign_in(response.data));
+      RootNavigation.navigate('Main Flow');
     } catch (err) {
       dispatch(add_error('Something went wrong with sign in'));
       console.log('sign in error: ', err);
@@ -93,6 +95,7 @@ export const register = ({ name,email, password,photo }) => async dispatch => {
       });
       //console.log(response.data);
       dispatch(user_register(response.data));
+      RootNavigation.navigate('Main Flow');
     } catch (err) {
       dispatch(add_error('Something went wrong with user register'));
       console.log('user register error: ', err);

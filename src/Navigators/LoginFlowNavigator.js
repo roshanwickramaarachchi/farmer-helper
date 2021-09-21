@@ -27,6 +27,6 @@ function MyStack() {
   );
 }
 
-export default function UserNavigator() {
+export default function LoginFlowNavigator() {
   return <MyStack />;
 }

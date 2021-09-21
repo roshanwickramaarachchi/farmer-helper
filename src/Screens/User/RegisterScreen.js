@@ -27,35 +27,35 @@ const RegisterScreen = ({navigation}) => {
   }, []);
 
   return (
-    <>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Spinner visible={isLoading} />
-        <AuthForm
-          headerText="Register"
-          errorMessage={errorMessage}
-          submitButtonText="Register"
-          onSubmit={register}
-        />
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.navigationText}>
-            If you already register go to sign in{' '}
-          </Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Spinner visible={isLoading} />
+      <AuthForm
+        headerText="Register"
+        errorMessage={errorMessage}
+        submitButtonText="Register"
+        onSubmit={register}
+      />
+
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.navigationText}>
+          If you already register go to sign in
+        </Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    //marginTop: 30,
     //marginBottom: 400,
-    width: width,
+    //width: width,
     justifyContent: 'center',
     alignItems: 'center',
   },
   navigationText: {
     marginTop: 30,
+    marginBottom: 30,
     alignSelf: 'center',
   },
 });
