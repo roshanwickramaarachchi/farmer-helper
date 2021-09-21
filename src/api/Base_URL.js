@@ -1,3 +1,3 @@
-const BASE_URL = 'http://6f67-2402-d000-a500-f14c-d956-e324-57d-85c9.ngrok.io';
+const BASE_URL = 'http://1df2-2402-d000-a400-9148-7878-82da-15-80c4.ngrok.io';
 
 export {BASE_URL};

@@ -32,6 +32,8 @@ const LoginScreen = ({navigation}) => {
           placeholder={'Enter Email'}
           name={'email'}
           id={'email'}
+          autoCorrect={false}
+          autoCapitalize={'none'}
           value={email}
           onChangeText={setEmail}
         />
@@ -39,6 +41,8 @@ const LoginScreen = ({navigation}) => {
           placeholder={'Enter Password'}
           name={'password'}
           id={'password'}
+          autoCorrect={false}
+          autoCapitalize={'none'}
           secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
@@ -55,9 +59,11 @@ const LoginScreen = ({navigation}) => {
           </EasyButton>
         </View>
 
-        <View style={[{marginTop: 30}, styles.button]}>
+        <View>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.middleText}>Don't have an account yet? </Text>
+            <Text style={styles.navigationText}>
+              Don't have an account yet?{' '}
+            </Text>
           </TouchableOpacity>
         </View>
       </FormContainer>
@@ -70,8 +76,8 @@ const styles = StyleSheet.create({
     width: '80%',
     alignItems: 'center',
   },
-  middleText: {
-    marginBottom: 20,
+  navigationText: {
+    marginTop: 30,
     alignSelf: 'center',
   },
 });

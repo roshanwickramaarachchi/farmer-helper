@@ -10,12 +10,33 @@ const Input = props => {
       id={props.id}
       value={props.value}
       autoCorrect={props.autoCorrect}
+      autoCapitalize={props.autoCapitalize}
       onChangeText={props.onChangeText}
       onFocus={props.onFocus}
       secureTextEntry={props.secureTextEntry}
-      keyboardType={props.keyboardType}></TextInput>
+      keyboardType={props.keyboardType}
+    />
   );
 };
+
+// eslint-disable-next-line prettier/prettier
+// const Input = ({placeholder,name,id,value,autoCorrect,autoCapitalize,onChangeText,onFocus,secureTextEntry,keyboardType}) => {
+//   return (
+//     // eslint-disable-next-line react/self-closing-comp
+//     <TextInput
+//       style={styles.input}
+//       placeholder={placeholder}
+//       name={name}
+//       id={id}
+//       value={value}
+//       autoCorrect={autoCorrect}
+//       autoCapitalize={autoCapitalize}
+//       onChangeText={onChangeText}
+//       onFocus={onFocus}
+//       secureTextEntry={secureTextEntry}
+//       keyboardType={keyboardType}></TextInput>
+//   );
+// };
 
 const styles = StyleSheet.create({
   input: {

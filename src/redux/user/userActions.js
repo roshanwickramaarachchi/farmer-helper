@@ -52,7 +52,7 @@ export const sign_out = () => {
 // eslint-disable-next-line prettier/prettier
 export const signin = ({ email, password }) => async dispatch => {
     try {
-      dispatch(is_loading())
+      dispatch(is_loading());
       const response = await axios({
         method: 'post',
         url: `${BASE_URL}/api/v1/auth/login`,
@@ -70,5 +70,31 @@ export const signin = ({ email, password }) => async dispatch => {
     } catch (err) {
       dispatch(add_error('Something went wrong with sign in'));
       console.log('sign in error: ', err);
+    }
+  };
+
+// eslint-disable-next-line prettier/prettier
+export const register = ({ name,email, password,photo }) => async dispatch => {
+    try {
+      dispatch(is_loading());
+      const response = await axios({
+        method: 'post',
+        url: `${BASE_URL}/api/v1/auth/register`,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          name,
+          email,
+          password,
+          photo,
+        },
+      });
+      //console.log(response.data);
+      dispatch(user_register(response.data));
+    } catch (err) {
+      dispatch(add_error('Something went wrong with user register'));
+      console.log('user register error: ', err);
     }
   };
