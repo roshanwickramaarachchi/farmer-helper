@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {BASE_URL} from '../../api/Base_URL';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ADD_ERROR,
   CLEAR_ERROR_MESSAGE,
@@ -50,6 +50,16 @@ export const sign_out = () => {
   };
 };
 
+export const tryLocalSignin = () => async dispatch => {
+  const token = await AsyncStorage.getItem('token');
+  if (token) {
+    dispatch(sign_in(token));
+    RootNavigation.navigate('Main Flow');
+  } else {
+    RootNavigation.navigate('Login Flow');
+  }
+};
+
 // eslint-disable-next-line prettier/prettier
 export const signin = ({ email, password }) => async dispatch => {
     try {
@@ -66,8 +76,9 @@ export const signin = ({ email, password }) => async dispatch => {
           password,
         },
       });
-      //console.log(response.data);
-      dispatch(sign_in(response.data));
+      //console.log(response.data.token);
+      await AsyncStorage.setItem('token', response.data.token);
+      dispatch(sign_in(response.data.token));
       RootNavigation.navigate('Main Flow');
     } catch (err) {
       dispatch(add_error('Something went wrong with sign in'));
@@ -94,10 +105,23 @@ export const register = ({ name,email, password,photo }) => async dispatch => {
         },
       });
       //console.log(response.data);
-      dispatch(user_register(response.data));
+      await AsyncStorage.setItem('token', response.data.token);
+      dispatch(user_register(response.data.token));
       RootNavigation.navigate('Main Flow');
     } catch (err) {
       dispatch(add_error('Something went wrong with user register'));
       console.log('user register error: ', err);
     }
   };
+
+export const signout = () => async dispatch => {
+  try {
+    dispatch(is_loading());
+    await AsyncStorage.removeItem('token');
+    dispatch(sign_out());
+    RootNavigation.navigate('Login Flow');
+  } catch (err) {
+    dispatch(add_error('Something went wrong with sign out'));
+    console.log('sign out error: ', err);
+  }
+};
