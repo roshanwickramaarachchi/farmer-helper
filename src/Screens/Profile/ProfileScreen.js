@@ -11,7 +11,7 @@ const ProfileScreen = () => {
 
   return (
     <View>
-      <Spinner visible={isLoading} />
+      <Spinner visible={isLoading} /> 
       <Text>Profile Screen</Text>
       <EasyButton large primary onPress={() => dispatch(signout())}>
         <Text style={{color: 'white'}}>Login</Text>

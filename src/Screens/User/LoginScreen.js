@@ -62,7 +62,7 @@ const LoginScreen = ({navigation}) => {
         <View>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.navigationText}>
-              Don't have an account yet?{' '}
+              Don't have an account yet?
             </Text>
           </TouchableOpacity>
         </View>

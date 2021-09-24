@@ -53,7 +53,7 @@ export const sign_out = () => {
 export const tryLocalSignin = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
-    dispatch(sign_in(token));
+    //dispatch(sign_in(token));
     RootNavigation.navigate('Main Flow');
   } else {
     RootNavigation.navigate('Login Flow');
