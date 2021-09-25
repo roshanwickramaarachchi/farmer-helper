@@ -1,5 +1,5 @@
-export const ADD_ERROR = 'ADD_ERROR';
-export const CLEAR_ERROR_MESSAGE = 'CLEAR_ERROR_MESSAGE';
+export const ADD_ERROR_POSTS = 'ADD_ERROR_POSTS';
+export const CLEAR_ERROR_MESSAGE_POSTS = 'CLEAR_ERROR_MESSAGE_POSTS';
 export const IS_LOADING_POSTS = 'IS_LOADING_POSTS';
 export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';

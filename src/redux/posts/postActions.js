@@ -2,8 +2,8 @@ import axios from 'axios';
 import {BASE_URL} from '../../api/Base_URL';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  ADD_ERROR,
-  CLEAR_ERROR_MESSAGE,
+  ADD_ERROR_POSTS,
+  CLEAR_ERROR_MESSAGE_POSTS,
   IS_LOADING_POSTS,
   GET_POSTS,
   ADD_POST,
@@ -12,16 +12,16 @@ import {
 } from './postType';
 import * as RootNavigation from '../../Navigators/RootNavigation';
 
-export const add_error = errorMessage => {
+export const add_error_posts = errorMessagePosts => {
   return {
-    type: ADD_ERROR,
-    payload: errorMessage,
+    type: ADD_ERROR_POSTS,
+    payload: errorMessagePosts,
   };
 };
 
-export const clear_error_message = () => {
+export const clear_error_message_posts = () => {
   return {
-    type: CLEAR_ERROR_MESSAGE,
+    type: CLEAR_ERROR_MESSAGE_POSTS,
   };
 };
 
@@ -74,7 +74,7 @@ export const getPosts = () => async dispatch => {
     //console.log(response.data);
     dispatch(get_posts(response.data.data));
   } catch (err) {
-    dispatch(add_error('Something went wrong with get posts'));
+    dispatch(add_error_posts('Something went wrong with get posts'));
     console.log('get posts error: ', err);
   }
 };

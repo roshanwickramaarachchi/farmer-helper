@@ -11,9 +11,9 @@ function MyStack() {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{
-          headerShown: false,
-        }}
+        // options={{
+        //   headerShown: false,
+        // }}
       />
     </Stack.Navigator>
   );

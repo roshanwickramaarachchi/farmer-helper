@@ -1,6 +1,6 @@
 import {
-  ADD_ERROR,
-  CLEAR_ERROR_MESSAGE,
+  ADD_ERROR_POSTS,
+  CLEAR_ERROR_MESSAGE_POSTS,
   IS_LOADING_POSTS,
   GET_POSTS,
   ADD_POST,
@@ -10,30 +10,38 @@ import {
 
 const initialState = {
   posts: [],
-  errorMessage: '',
+  errorMessagePosts: '',
   isLoadingPosts: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_ERROR:
-      return {...state, errorMessage: action.payload, isLoadingPosts: false};
-    case CLEAR_ERROR_MESSAGE:
-      return {...state, errorMessage: ''};
+    case ADD_ERROR_POSTS:
+      return {
+        ...state,
+        errorMessagePosts: action.payload,
+        isLoadingPosts: false,
+      };
+    case CLEAR_ERROR_MESSAGE_POSTS:
+      return {...state, errorMessagePosts: ''};
     case IS_LOADING_POSTS:
       return {...state, isLoadingPosts: true};
     case GET_POSTS:
-      return {errorMessage: '', posts: action.payload, isLoadingPosts: false};
+      return {
+        errorMessagePosts: '',
+        posts: action.payload,
+        isLoadingPosts: false,
+      };
     case ADD_POST:
-      return {...state, errorMessage: '', isLoadingPosts: false};
+      return {...state, errorMessagePosts: '', isLoadingPosts: false};
     case DELETE_POST:
       return {
-        errorMessage: '',
+        errorMessagePosts: '',
         posts: state.posts.filter(post => post._id !== action.payload),
         isLoadingPosts: false,
       };
     case UPDATE_POST:
-      return {...state, errorMessage: '', isLoadingPosts: false};
+      return {...state, errorMessagePosts: '', isLoadingPosts: false};
     default:
       return state;
   }

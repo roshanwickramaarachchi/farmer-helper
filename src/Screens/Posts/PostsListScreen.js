@@ -11,14 +11,25 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Spinner from 'react-native-loading-spinner-overlay';
 import PostCard from '../../Components/PostCard';
-import {getPosts} from '../../redux/posts/postActions';
+import {
+  getPosts,
+  clear_error_message_posts,
+} from '../../redux/posts/postActions';
 import {connect, useDispatch, useSelector} from 'react-redux';
 
 var {width} = Dimensions.get('window');
 
 const PostsListScreen = ({navigation}) => {
-  const {errorMessage, isLoading, posts} = useSelector(state => state.posts);
+  const {errorMessagePosts, isLoading, posts} = useSelector(state => state.posts);
   const dispatch = useDispatch();
+
+  //when the screen goes out of focus, error message will hide
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      dispatch(clear_error_message_posts());
+    });
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     const listener = navigation.addListener('focus', () => {
@@ -27,19 +38,7 @@ const PostsListScreen = ({navigation}) => {
     return listener;
   }, [dispatch, navigation]);
   // console.log(posts);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Icon
-          name="add-outline"
-          size={40}
-          onPress={() => navigation.navigate('Post Create')}
-        />
-      ),
-    });
-  }, [navigation]);
-  
+    
   return (
     <View style={styles.container}>
       <Spinner visible={isLoading} />
