@@ -17,7 +17,12 @@ var {width} = Dimensions.get('window');
 
 import {connect, useDispatch, useSelector} from 'react-redux';
 
-const PostForm = ({onSubmit, submitButtonText, errorMessagePosts, postData}) => {
+const PostForm = ({
+  onSubmit,
+  submitButtonText,
+  errorMessagePosts,
+  postData,
+}) => {
   const dispatch = useDispatch();
 
   const [photo, setPhoto] = useState(postData.photo);

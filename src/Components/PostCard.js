@@ -21,7 +21,7 @@ const PostCard = ({item}) => {
         </View>
       </View>
       <Text style={styles.postText}>{item.description}</Text>
-      <Image style={styles.postImg} /*source={{uri: item.photo}}*/ />
+      <Image style={styles.postImg} source={{uri: item.photo}} />
       <View style={styles.interactionWrapper}>
         <TouchableOpacity style={styles.interaction}>
           <Icon name="heart-outline" size={25} />

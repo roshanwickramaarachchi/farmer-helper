@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import PostForm from '../../Components/Form/PostForm';
+import Error from '../../Components/Error';
 
 import {
-  createPost,
+  addPost,
   clear_error_message_posts,
 } from '../../redux/posts/postActions';
 import {connect, useDispatch, useSelector} from 'react-redux';
@@ -22,10 +24,15 @@ const PostCreteScreen = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* error message */}
+      {errorMessagePosts ? <Error message={errorMessagePosts} /> : null}
+
+      <Spinner visible={isLoadingPosts} />
+
       <PostForm
         errorMessage={errorMessagePosts}
         submitButtonText="Save"
-        onSubmit={createPost}
+        onSubmit={addPost}
       />
     </ScrollView>
   );

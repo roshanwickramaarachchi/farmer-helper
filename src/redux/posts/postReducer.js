@@ -33,7 +33,11 @@ const reducer = (state = initialState, action) => {
         isLoadingPosts: false,
       };
     case ADD_POST:
-      return {...state, errorMessagePosts: '', isLoadingPosts: false};
+      return {
+        ...state,
+        errorMessagePosts: '',
+        isLoadingPosts: false,
+      };
     case DELETE_POST:
       return {
         errorMessagePosts: '',

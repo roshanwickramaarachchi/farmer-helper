@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Spinner from 'react-native-loading-spinner-overlay';
 import PostCard from '../../Components/PostCard';
+import Error from '../../Components/Error';
 import {
   getPosts,
   clear_error_message_posts,
@@ -20,7 +21,9 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 var {width} = Dimensions.get('window');
 
 const PostsListScreen = ({navigation}) => {
-  const {errorMessagePosts, isLoading, posts} = useSelector(state => state.posts);
+  const {errorMessagePosts, isLoadingPosts, posts} = useSelector(
+    state => state.posts,
+  );
   const dispatch = useDispatch();
 
   //when the screen goes out of focus, error message will hide
@@ -37,11 +40,15 @@ const PostsListScreen = ({navigation}) => {
     });
     return listener;
   }, [dispatch, navigation]);
-  // console.log(posts);
-    
+  console.log(posts);
+
   return (
     <View style={styles.container}>
-      <Spinner visible={isLoading} />
+      {/* error message */}
+      {errorMessagePosts ? <Error message={errorMessagePosts} /> : null}
+
+      <Spinner visible={isLoadingPosts} />
+
       <FlatList
         data={posts}
         renderItem={({item}) => <PostCard item={item} />}
