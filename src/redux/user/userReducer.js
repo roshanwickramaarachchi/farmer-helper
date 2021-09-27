@@ -5,9 +5,12 @@ import {
   SIGN_IN,
   REGISTER,
   SIGN_OUT,
+  GETME,  
+
 } from './userType';
 
 const initialState = {
+  userData: [],
   token: null,
   errorMessage: '',
   isLoading: false,
@@ -27,6 +30,8 @@ const reducer = (state = initialState, action) => {
       return {errorMessage: '', token: action.payload, isLoading: false};
     case SIGN_OUT:
       return {token: null, errorMessage: '', isLoading: false};
+    case GETME:
+      return {errorMessage: '', userData: action.payload, isLoading: false};
     default:
       return state;
   }

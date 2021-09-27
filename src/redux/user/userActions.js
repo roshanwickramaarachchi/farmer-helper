@@ -8,6 +8,7 @@ import {
   SIGN_IN,
   REGISTER,
   SIGN_OUT,
+  GETME,
 } from './userType';
 import * as RootNavigation from '../../Navigators/RootNavigation';
 
@@ -47,6 +48,13 @@ export const user_register = token => {
 export const sign_out = () => {
   return {
     type: SIGN_OUT,
+  };
+};
+
+export const get_me = userData => {
+  return {
+    type: GETME,
+    payload: userData,
   };
 };
 
@@ -123,5 +131,26 @@ export const signout = () => async dispatch => {
   } catch (err) {
     dispatch(add_error('Something went wrong with sign out'));
     console.log('sign out error: ', err);
+  }
+};
+
+export const getMe = () => async dispatch => {
+  try {
+    dispatch(is_loading());
+    var token = await AsyncStorage.getItem('token');
+    const response = await axios({
+      method: 'get',
+      url: `${BASE_URL}/api/v1/auth/me`,
+      headers: {
+        Authorization: 'Bearer ' + token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    });
+    //console.log(response.data.data);
+    dispatch(get_me(response.data.data));
+  } catch (err) {
+    dispatch(add_error('Something went wrong with get me '));
+    console.log('user get me error: ', err);
   }
 };

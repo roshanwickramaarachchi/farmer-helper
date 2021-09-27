@@ -1,9 +1,10 @@
+/* eslint-disable no-lone-blocks */
 import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  TextInput,
   Image,
   Platform,
   PermissionsAndroid,
@@ -19,14 +20,14 @@ var {width} = Dimensions.get('window');
 import {connect, useDispatch, useSelector} from 'react-redux';
 
 // eslint-disable-next-line prettier/prettier
-const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, userData}) => {
+const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, initialValues}) => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState(userData.name);
-  const [email, setEmail] = useState(userData.email);
-  const [password, setPassword] = useState(userData.password);
-  const [photo, setPhoto] = useState(userData.photo);
-  const [description, setDescription] = useState(userData.description);
+  const [name, setName] = useState(initialValues.name);
+  const [email, setEmail] = useState(initialValues.email);
+  const [password, setPassword] = useState('');
+  const [photo, setPhoto] = useState(initialValues.photo);
+  const [description, setDescription] = useState(initialValues.description);
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -144,7 +145,9 @@ const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, userDat
 
   return (
     <>
-      <Text style={styles.title}>{headerText}</Text>
+      {headerText === 'Register' ? (
+        <Text style={styles.title}>{headerText}</Text>
+      ) : null}
 
       {photo ? (
         <Image source={{uri: photo}} style={styles.imageStyle} />
@@ -195,21 +198,23 @@ const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, userDat
         value={email}
         onChangeText={setEmail}
       />
-      <Input
-        placeholder={'Enter Password'}
-        name={'password'}
-        id={'password'}
-        autoCorrect={false}
-        autoCapitalize={'none'}
-        secureTextEntry={true}
-        value={password}
-        onChangeText={setPassword}
-      />
+      {headerText === 'Register' ? (
+        <Input
+          placeholder={'Enter Password'}
+          name={'password'}
+          id={'password'}
+          autoCorrect={false}
+          autoCapitalize={'none'}
+          secureTextEntry={true}
+          value={password}
+          onChangeText={setPassword}
+        />
+      ) : null}
 
       {/* error message */}
       {errorMessage ? <Error message={errorMessage} /> : null}
 
-      <View style={{marginTop:30}}>
+      <View style={{marginTop: 30}}>
         <EasyButton
           large
           primary
@@ -224,15 +229,13 @@ const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, userDat
 };
 
 AuthForm.defaultProps = {
-  userData: {
+  initialValues: {
     name: '',
     photo: null,
     description: '',
     email: '',
-    password: '',
-  }
-
-}
+  },
+};
 
 const styles = StyleSheet.create({
   title: {
@@ -243,9 +246,9 @@ const styles = StyleSheet.create({
     height: width / 2,
     margin: 10,
     borderRadius: width / 4,
+    borderColor: 'green',
+    borderWidth: 2,
   },
 });
-
-
 
 export default AuthForm;

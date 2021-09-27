@@ -40,7 +40,7 @@ const PostsListScreen = ({navigation}) => {
     });
     return listener;
   }, [dispatch, navigation]);
-  console.log(posts);
+  //console.log(posts);
 
   return (
     <View style={styles.container}>
