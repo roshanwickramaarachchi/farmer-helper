@@ -23,6 +23,7 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, initialValues}) => {
   const dispatch = useDispatch();
 
+
   const [name, setName] = useState(initialValues.name);
   const [email, setEmail] = useState(initialValues.email);
   const [password, setPassword] = useState('');
@@ -218,9 +219,11 @@ const AuthForm = ({headerText, onSubmit, submitButtonText, errorMessage, initial
         <EasyButton
           large
           primary
-          onPress={() =>
-            dispatch(onSubmit({name, photo, description, email, password}))
-          }>
+          onPress={() => {
+            headerText === 'Register'
+              ? dispatch(onSubmit({name, photo, description, email, password}))
+              : dispatch(onSubmit({name, photo, description, email}));
+          }}>
           <Text style={{color: 'white'}}>{submitButtonText}</Text>
         </EasyButton>
       </View>

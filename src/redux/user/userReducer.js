@@ -6,11 +6,12 @@ import {
   REGISTER,
   SIGN_OUT,
   GETME,  
+  UPDATE,
 
 } from './userType';
 
 const initialState = {
-  userData: [],
+  userData: '',
   token: null,
   errorMessage: '',
   isLoading: false,
@@ -28,8 +29,10 @@ const reducer = (state = initialState, action) => {
       return {errorMessage: '', token: action.payload, isLoading: false};
     case REGISTER:
       return {errorMessage: '', token: action.payload, isLoading: false};
+    case UPDATE:
+      return {...state, errorMessage: '', isLoading: false};
     case SIGN_OUT:
-      return {token: null, errorMessage: '', isLoading: false};
+      return {...state, token: null, errorMessage: '', isLoading: false};
     case GETME:
       return {errorMessage: '', userData: action.payload, isLoading: false};
     default:

@@ -4,7 +4,7 @@ import EasyButton from '../../Components/Button/EasyButton';
 import AuthForm from '../../Components/Form/AuthForm';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getMe, signout} from '../../redux/user/userActions';
+import {getMe, signout, updateDetails} from '../../redux/user/userActions';
 import {connect, useDispatch, useSelector} from 'react-redux';
 
 const ProfileScreen = ({navigation}) => {
@@ -17,37 +17,48 @@ const ProfileScreen = ({navigation}) => {
     });
     return listener;
   }, [dispatch, navigation]);
-  //console.log(posts); 
+  //console.log(posts);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Icon
-          name="add-outline"
-          size={40}
-          onPress={() => navigation.navigate('Post Create')}
-        />
+        <View>
+          {/* <Icon
+            name="add-outline"
+            size={40}
+            onPress={() => navigation.navigate('Post Create')}
+          /> */}
+          <Icon
+            name="log-out-outline"
+            size={40}
+            onPress={() => dispatch(signout())}
+          />
+        </View>
       ),
     });
-  }, [navigation]);
+  }, [dispatch, navigation]);
 
-  if (userData.name === undefined){
-    return null;
-  }
+  console.log(userData);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Spinner visible={isLoading} />
-      <AuthForm
-        headerText="Profile"
-        errorMessage={errorMessage}
-        submitButtonText="save"
-        //onSubmit={update}
-        initialValues={userData}
-      />
-      <View>
-        <EasyButton large primary onPress={() => dispatch(signout())}>
-          <Text style={{color: 'white'}}>Sign out</Text>
+      {userData ? (
+        <AuthForm
+          headerText="Profile"
+          errorMessage={errorMessage}
+          submitButtonText="save"
+          onSubmit={updateDetails}
+          initialValues={userData}
+        />
+      ) : null}
+
+      <View style={{marginTop: 30}}>
+        <EasyButton
+          large
+          secondary
+          onPress={() => navigation.navigate('Post Create')}>
+          <Text style={{color: 'white'}}>create post</Text>
         </EasyButton>
       </View>
     </ScrollView>

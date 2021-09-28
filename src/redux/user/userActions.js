@@ -9,6 +9,7 @@ import {
   REGISTER,
   SIGN_OUT,
   GETME,
+  UPDATE,
 } from './userType';
 import * as RootNavigation from '../../Navigators/RootNavigation';
 
@@ -58,6 +59,12 @@ export const get_me = userData => {
   };
 };
 
+export const update_details = () => {
+  return {
+    type: UPDATE,
+  };
+};
+
 export const tryLocalSignin = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
@@ -95,7 +102,7 @@ export const signin = ({ email, password }) => async dispatch => {
   };
 
 // eslint-disable-next-line prettier/prettier
-export const register = ({ name,email, password,photo }) => async dispatch => {
+export const register = ({ name,email, password,photo,description }) => async dispatch => {
     try {
       dispatch(is_loading());
       const response = await axios({
@@ -110,6 +117,7 @@ export const register = ({ name,email, password,photo }) => async dispatch => {
           email,
           password,
           photo,
+          description,
         },
       });
       //console.log(response.data);
@@ -145,7 +153,7 @@ export const getMe = () => async dispatch => {
         Authorization: 'Bearer ' + token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
-      }
+      },
     });
     //console.log(response.data.data);
     dispatch(get_me(response.data.data));
@@ -154,3 +162,32 @@ export const getMe = () => async dispatch => {
     console.log('user get me error: ', err);
   }
 };
+
+// eslint-disable-next-line prettier/prettier
+export const updateDetails = ({ name,email,photo,description }) => async dispatch => {
+    try {
+      dispatch(is_loading());
+      var token = await AsyncStorage.getItem('token');
+      const response = await axios({
+        method: 'put',
+        url: `${BASE_URL}/api/v1/auth/updateDetails`,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          name,
+          email,
+          photo,
+          description,
+        },
+      });
+      //console.log(response.data);
+      dispatch(update_details());
+      //RootNavigation.navigate('Main Flow');
+    } catch (err) {
+      dispatch(add_error('Something went wrong with user details update'));
+      console.log('user details update error: ', err);
+    }
+  };
