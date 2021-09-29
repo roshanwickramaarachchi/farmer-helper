@@ -8,17 +8,33 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {connect, useDispatch, useSelector} from 'react-redux';
 var {width} = Dimensions.get('window');
 
 const PostCard = ({item}) => {
+  const {userData} = useSelector(state => state.user);
+
   return (
     <View style={styles.card}>
-      <View style={styles.userInfo}>
-        <Image style={styles.userImg} /*source={{uri: item.user.photo}}*/ />
-        <View style={styles.userInfoText}>
-          <Text style={styles.userName}>{item.user.name}</Text>
-          <Text style={styles.postTime}>{item.createdAt}</Text>
+      <View style={styles.header}>
+        <View style={styles.userInfo}>
+          <Image style={styles.userImg} /*source={{uri: item.user.photo}}*/ />
+          <View style={styles.userInfoText}>
+            <Text style={styles.userName}>{item.user.name}</Text>
+            <Text style={styles.postTime}>{item.createdAt}</Text>
+          </View>
         </View>
+        {userData._id === item.user ? (
+          <View>
+            <Icon name="pencil" size={25} />
+          </View>
+        ) : null}
+
+        {userData._id === item.user ? (
+          <View>
+            <Icon name="trash-outline" size={25} />
+          </View>
+        ) : null}
       </View>
       <Text style={styles.postText}>{item.description}</Text>
       <Image style={styles.postImg} source={{uri: item.photo}} />
@@ -39,14 +55,21 @@ const PostCard = ({item}) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#f8f8f8',
-    width: (width * 95) / 100,
+    width: width,
     marginBottom: 20,
     borderRadius: 10,
+    padding: 15,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // borderColor: 'red',
+    // borderWidth: 5,
   },
   userInfo: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    padding: 15,
+    //padding: 15,
   },
   userImg: {
     width: 50,
@@ -65,6 +88,10 @@ const styles = StyleSheet.create({
   postTime: {
     fontSize: 12,
     color: '#666',
+  },
+  iconConatainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
   postText: {
     fontSize: 14,

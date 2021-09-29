@@ -99,6 +99,7 @@ export const addPost = ({photo, description}) => async dispatch => {
       });
       //console.log(response.data);
       dispatch(add_post());
+      RootNavigation.navigate('Profile');
     } catch (err) {
       dispatch(add_error_posts('Something went wrong with add post'));
       console.log('add post error: ', err);

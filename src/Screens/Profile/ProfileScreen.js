@@ -2,10 +2,13 @@ import React, {useLayoutEffect, useEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import EasyButton from '../../Components/Button/EasyButton';
 import AuthForm from '../../Components/Form/AuthForm';
+import PostCard from '../../Components/PostCard';
+import Error from '../../Components/Error';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getMe, signout, updateDetails} from '../../redux/user/userActions';
 import {connect, useDispatch, useSelector} from 'react-redux';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ProfileScreen = ({navigation}) => {
   const {errorMessage, isLoading, userData} = useSelector(state => state.user);
@@ -38,29 +41,37 @@ const ProfileScreen = ({navigation}) => {
     });
   }, [dispatch, navigation]);
 
-  console.log(userData);
+  //console.log(userData.posts);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView>
       <Spinner visible={isLoading} />
       {userData ? (
-        <AuthForm
-          headerText="Profile"
-          errorMessage={errorMessage}
-          submitButtonText="save"
-          onSubmit={updateDetails}
-          initialValues={userData}
-        />
-      ) : null}
+        <View style={styles.container}>
+          <AuthForm
+            headerText="Profile"
+            errorMessage={errorMessage}
+            submitButtonText="save"
+            onSubmit={updateDetails}
+            initialValues={userData}
+          />
 
-      <View style={{marginTop: 30}}>
-        <EasyButton
-          large
-          secondary
-          onPress={() => navigation.navigate('Post Create')}>
-          <Text style={{color: 'white'}}>create post</Text>
-        </EasyButton>
-      </View>
+          <View style={{marginTop: 30, marginBottom: 30}}>
+            <EasyButton
+              large
+              secondary
+              onPress={() => navigation.navigate('Post Create')}>
+              <Text style={{color: 'white'}}>create post</Text>
+            </EasyButton>
+          </View>
+
+          <View>
+            {userData.posts.map(item => (
+              <PostCard key={item._id} item={item} />
+            ))}
+          </View>
+        </View>
+      ) : null}
     </ScrollView>
   );
 };
