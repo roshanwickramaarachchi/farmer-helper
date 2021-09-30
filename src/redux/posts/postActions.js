@@ -38,9 +38,10 @@ export const get_posts = posts => {
   };
 };
 
-export const add_post = () => {
+export const add_post = post => {
   return {
     type: ADD_POST,
+    payload: post,
   };
 };
 
@@ -84,7 +85,7 @@ export const addPost = ({photo, description}) => async dispatch => {
     try {
       dispatch(is_loading_posts());
       var token = await AsyncStorage.getItem('token');
-      await axios({
+      const response = await axios({
         method: 'post',
         url: `${BASE_URL}/api/v1/posts`,
         headers: {
@@ -98,7 +99,7 @@ export const addPost = ({photo, description}) => async dispatch => {
         },
       });
       //console.log(response.data);
-      dispatch(add_post());
+      dispatch(add_post(response.data.data));
       RootNavigation.navigate('Profile');
     } catch (err) {
       dispatch(add_error_posts('Something went wrong with add post'));

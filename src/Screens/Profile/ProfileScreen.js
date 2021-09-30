@@ -19,8 +19,12 @@ const ProfileScreen = ({navigation}) => {
       dispatch(getMe());
     });
     return listener;
-  }, [dispatch, navigation]);
+  }, []);
   //console.log(posts);
+
+  // useEffect(() => {
+  //   dispatch(getMe());
+  // }, [dispatch]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -39,7 +43,7 @@ const ProfileScreen = ({navigation}) => {
         </View>
       ),
     });
-  }, [dispatch, navigation]);
+  }, []);
 
   //console.log(userData.posts);
 

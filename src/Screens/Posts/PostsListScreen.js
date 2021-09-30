@@ -32,7 +32,7 @@ const PostsListScreen = ({navigation}) => {
       dispatch(clear_error_message_posts());
     });
     return unsubscribe;
-  }, []);
+  }, [dispatch, navigation]);
 
   useEffect(() => {
     const listener = navigation.addListener('focus', () => {
@@ -40,7 +40,6 @@ const PostsListScreen = ({navigation}) => {
     });
     return listener;
   }, [dispatch, navigation]);
-  //console.log(posts);
 
   return (
     <View style={styles.container}>

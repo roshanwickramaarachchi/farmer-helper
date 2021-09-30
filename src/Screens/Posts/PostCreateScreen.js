@@ -20,7 +20,7 @@ const PostCreteScreen = ({navigation}) => {
       dispatch(clear_error_message_posts());
     });
     return unsubscribe;
-  }, []);
+  }, [dispatch, navigation]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
