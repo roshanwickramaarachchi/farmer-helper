@@ -18,9 +18,17 @@ const PostCard = ({item}) => {
     <View style={styles.card}>
       <View style={styles.header}>
         <View style={styles.userInfo}>
-          <Image style={styles.userImg} /*source={{uri: item.user.photo}}*/ />
+          {userData._id === item.user ? (
+            <Image style={styles.userImg} source={{uri: userData.photo}} />
+          ) : (
+            <Image style={styles.userImg} source={{uri: item.user.photo}} />
+          )}
           <View style={styles.userInfoText}>
-            <Text style={styles.userName}>{item.user.name}</Text>
+            {userData._id === item.user ? (
+              <Text style={styles.userName}>{userData.name}</Text>
+            ) : (
+              <Text style={styles.userName}>{item.user.name}</Text>
+            )}
             <Text style={styles.postTime}>{item.createdAt}</Text>
           </View>
         </View>
