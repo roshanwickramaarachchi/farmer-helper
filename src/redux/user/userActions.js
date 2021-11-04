@@ -69,9 +69,9 @@ export const tryLocalSignin = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
     //dispatch(sign_in(token));
-    RootNavigation.navigate('Main Flow');
+    RootNavigation.navigateReplace('Main Flow');
   } else {
-    RootNavigation.navigate('Login Flow');
+    RootNavigation.navigateReplace('Login Flow');
   }
 };
 
@@ -94,7 +94,7 @@ export const signin = ({ email, password }) => async dispatch => {
       //console.log(response.data.token);
       await AsyncStorage.setItem('token', response.data.token);
       dispatch(sign_in(response.data.token));
-      RootNavigation.navigate('Main Flow');
+      RootNavigation.navigateReplace('Main Flow');
     } catch (err) {
       dispatch(add_error('Something went wrong with sign in'));
       console.log('sign in error: ', err);
@@ -123,7 +123,7 @@ export const register = ({ name,email, password,photo,description }) => async di
       //console.log(response.data);
       await AsyncStorage.setItem('token', response.data.token);
       dispatch(user_register(response.data.token));
-      RootNavigation.navigate('Main Flow');
+      RootNavigation.navigateReplace('Main Flow');
     } catch (err) {
       dispatch(add_error('Something went wrong with user register'));
       console.log('user register error: ', err);
@@ -135,7 +135,7 @@ export const signout = () => async dispatch => {
     dispatch(is_loading());
     await AsyncStorage.removeItem('token');
     dispatch(sign_out());
-    RootNavigation.navigate('Login Flow');
+    RootNavigation.navigateReplace('Login Flow');
   } catch (err) {
     dispatch(add_error('Something went wrong with sign out'));
     console.log('sign out error: ', err);

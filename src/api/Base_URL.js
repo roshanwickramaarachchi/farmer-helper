@@ -1,3 +1,3 @@
-const BASE_URL = 'https://happy-treefrog-97.loca.lt';
+const BASE_URL = 'https://farmer-helper-api.herokuapp.com';
 
 export {BASE_URL};
