@@ -52,9 +52,10 @@ export const delete_post = id => {
   };
 };
 
-export const update_post = () => {
+export const update_post = post => {
   return {
     type: UPDATE_POST,
+    payload: post,
   };
 };
 
@@ -103,6 +104,34 @@ export const addPost = ({photo, description}) => async dispatch => {
       RootNavigation.navigate('Profile');
     } catch (err) {
       dispatch(add_error_posts('Something went wrong with add post'));
+      console.log('add post error: ', err);
+    }
+  };
+
+// eslint-disable-next-line prettier/prettier
+  export const updatePost = ({photo, description, postId}) => async dispatch => {
+    try {
+      dispatch(is_loading_posts());
+      var token = await AsyncStorage.getItem('token');
+      const response = await axios({
+        method: 'put',
+        url: `${BASE_URL}/api/v1/posts/${postId}`,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          photo,
+          description,
+        },
+      });
+      //console.log(response.data);
+      dispatch(update_post(response.data.data));
+      RootNavigation.navigate('Profile');
+      console.log(response.data.data);
+    } catch (err) {
+      dispatch(add_error_posts('Something went wrong with updaate post'));
       console.log('add post error: ', err);
     }
   };

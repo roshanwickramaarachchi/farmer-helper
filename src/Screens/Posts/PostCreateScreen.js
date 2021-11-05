@@ -33,6 +33,7 @@ const PostCreteScreen = ({navigation}) => {
         errorMessage={errorMessagePosts}
         submitButtonText="Save"
         onSubmit={addPost}
+        onUpdate={''}
       />
     </ScrollView>
   );

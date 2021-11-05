@@ -5,7 +5,7 @@ import PostForm from '../../Components/Form/PostForm';
 import Error from '../../Components/Error';
 
 import {
-  editPost,
+  updatePost,
   clear_error_message_posts,
 } from '../../redux/posts/postActions';
 import {connect, useDispatch, useSelector} from 'react-redux';
@@ -15,6 +15,8 @@ const PostEditScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
 
   const {postData} = route.params;
+
+  //console.log(postData);
 
   //when the screen goes out of focus, error message will hide
   useEffect(() => {
@@ -34,8 +36,9 @@ const PostEditScreen = ({route, navigation}) => {
       <PostForm
         errorMessage={errorMessagePosts}
         submitButtonText="Save"
-        onSubmit={editPost}
+        onUpdate={updatePost}
         postData={postData}
+        onSubmit={''}
       />
     </ScrollView>
   );

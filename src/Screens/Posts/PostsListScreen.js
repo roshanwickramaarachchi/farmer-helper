@@ -16,6 +16,7 @@ import {
   getPosts,
   clear_error_message_posts,
 } from '../../redux/posts/postActions';
+import {getMe} from '../../redux/user/userActions';
 import {connect, useDispatch, useSelector} from 'react-redux';
 
 var {width} = Dimensions.get('window');
@@ -37,10 +38,12 @@ const PostsListScreen = ({navigation}) => {
   useEffect(() => {
     const listener = navigation.addListener('focus', () => {
       dispatch(getPosts());
+      dispatch(getMe());
     });
     return listener;
-  }, [dispatch, navigation]);
+  }, [posts, navigation, dispatch]);
 
+ 
   return (
     <View style={styles.container}>
       {/* error message */}

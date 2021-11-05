@@ -45,8 +45,21 @@ const reducer = (state = initialState, action) => {
         posts: state.posts.filter(post => post._id !== action.payload),
         isLoadingPosts: false,
       };
-    case UPDATE_POST:
-      return {...state, errorMessagePosts: '', isLoadingPosts: false};
+    // case UPDATE_POST:
+    //   return {...state, errorMessagePosts: '', isLoadingPosts: false};
+    case UPDATE_POST: {
+      const index = state.posts.findIndex(
+        post => post.id !== action.payload._id,
+      ); //finding index of the item
+      const newArray = [...state.posts]; //making a new array
+      newArray[index] = action.payload; //changing value in the new array
+      return {
+        ...state, //copying the orignal state
+        posts: newArray, //reassingning todos to new array
+        errorMessagePosts: '',
+        isLoadingPosts: false,
+      };
+    }
     default:
       return state;
   }

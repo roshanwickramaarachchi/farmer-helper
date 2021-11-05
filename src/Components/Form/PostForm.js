@@ -19,14 +19,19 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 
 const PostForm = ({
   onSubmit,
+  onUpdate,
   submitButtonText,
   errorMessagePosts,
   postData,
 }) => {
   const dispatch = useDispatch();
+  //console.log(postData._id);
 
   const [photo, setPhoto] = useState(postData.photo);
   const [description, setDescription] = useState(postData.description);
+  const [postId, setPostId] = useState(postData._id);
+
+  //console.log(postId);
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -179,12 +184,21 @@ const PostForm = ({
       {errorMessagePosts ? <Error message={errorMessagePosts} /> : null}
 
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <EasyButton
-          large
-          primary
-          onPress={() => dispatch(onSubmit({photo, description}))}>
-          <Text style={{color: 'white'}}>{submitButtonText}</Text>
-        </EasyButton>
+        {onSubmit ? (
+          <EasyButton
+            large
+            primary
+            onPress={() => dispatch(onSubmit({photo, description}))}>
+            <Text style={{color: 'white'}}>{submitButtonText}</Text>
+          </EasyButton>
+        ) : (
+          <EasyButton
+            large
+            primary
+            onPress={() => dispatch(onUpdate({photo, description, postId}))}>
+            <Text style={{color: 'white'}}>{submitButtonText}</Text>
+          </EasyButton>
+        )}
       </View>
     </>
   );
@@ -205,6 +219,7 @@ PostForm.defaultProps = {
   postData: {
     photo: null,
     description: '',
+    _id: '',
   },
 };
 
