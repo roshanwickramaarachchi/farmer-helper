@@ -49,10 +49,11 @@ const reducer = (state = initialState, action) => {
     //   return {...state, errorMessagePosts: '', isLoadingPosts: false};
     case UPDATE_POST: {
       const index = state.posts.findIndex(
-        post => post.id !== action.payload._id,
+        post => post.id === action.payload._id,
       ); //finding index of the item
       const newArray = [...state.posts]; //making a new array
-      newArray[index] = action.payload; //changing value in the new array
+      newArray[index].description = action.payload.description; //changing value in the new array
+      newArray[index].photo = action.payload.photo; //changing value in the new array
       return {
         ...state, //copying the orignal state
         posts: newArray, //reassingning todos to new array
@@ -60,6 +61,7 @@ const reducer = (state = initialState, action) => {
         isLoadingPosts: false,
       };
     }
+
     default:
       return state;
   }

@@ -126,10 +126,10 @@ export const addPost = ({photo, description}) => async dispatch => {
           description,
         },
       });
-      //console.log(response.data);
+      //console.log(response.data.data);
       dispatch(update_post(response.data.data));
-      RootNavigation.navigate('Profile');
-      console.log(response.data.data);
+      RootNavigation.navigateGoBack();
+      //console.log(response.data.data);
     } catch (err) {
       dispatch(add_error_posts('Something went wrong with updaate post'));
       console.log('add post error: ', err);

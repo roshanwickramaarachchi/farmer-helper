@@ -14,19 +14,22 @@ import * as RootNavigation from '../Navigators/RootNavigation';
 
 const PostCard = ({item}) => {
   const {userData} = useSelector(state => state.user);
-  //console.log(userData._id);
+  
+  // console.log(userData._id === item.user._id);
+  // console.log(userData._id);
+  // console.log(item.user._id);
 
   return (
     <View style={styles.card}>
       <View style={styles.header}>
         <View style={styles.userInfo}>
-          {userData._id === item.user ? (
+          {userData._id === item.user || userData._id === item.user._id ? (
             <Image style={styles.userImg} source={{uri: userData.photo}} />
           ) : (
             <Image style={styles.userImg} source={{uri: item.user.photo}} />
           )}
           <View style={styles.userInfoText}>
-            {userData._id === item.user ? (
+            {userData._id === item.user || userData._id === item.user._id ? (
               <Text style={styles.userName}>{userData.name}</Text>
             ) : (
               <Text style={styles.userName}>{item.user.name}</Text>
@@ -34,7 +37,7 @@ const PostCard = ({item}) => {
             <Text style={styles.postTime}>{item.createdAt}</Text>
           </View>
         </View>
-        {userData._id === item.user ? (
+        {userData._id === item.user || userData._id === item.user._id ? (
           <TouchableOpacity
             onPress={() => {
               RootNavigation.navigate('Post Edit', {
@@ -48,7 +51,7 @@ const PostCard = ({item}) => {
           </TouchableOpacity>
         ) : null}
 
-        {userData._id === item.user ? (
+        {userData._id === item.user || userData._id === item.user._id ? (
           <TouchableOpacity onPress={() => console.log('pressed')}>
             <Icon name="trash-outline" size={25} />
           </TouchableOpacity>
